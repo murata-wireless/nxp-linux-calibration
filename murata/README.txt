@@ -106,3 +106,6 @@ Bluetooth Tx power configuration script file shall be loaded after Bluetooth dev
 Command example:
 ---------------
 # sh bt_power_config_1.sh
+
+
+Refer the sample file, "wifi_mod_para_sample_US.conf" which is configured for modules (1ZM and 1YM to select US region).
