@@ -18,14 +18,14 @@ function load_files() {
   fi
 
   # Copy regulatory files
-  cp /lib/firmware/nxp/murata/files/${MODULE}_${TYPE}/regulatory.bin /usr/lib/crda
-  cp /lib/firmware/nxp/murata/files/${MODULE}_${TYPE}/crda /usr/sbin/
-  cp /lib/firmware/nxp/murata/files/${MODULE}_${TYPE}/regdbdump /usr/sbin/
-  cp /lib/firmware/nxp/murata/files/${MODULE}_${TYPE}/libreg.so /usr/lib/
+  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin /usr/lib/crda
+  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/crda /usr/sbin/
+  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/regdbdump /usr/sbin/
+  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/libreg.so /usr/lib/
 
   # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
-  cp /lib/firmware/nxp/murata/files/${MODULE}_${TYPE}/txpower_*.bin /lib/firmware/nxp
-  cp /lib/firmware/nxp/murata/files/${MODULE}_${TYPE}/ed_mac.bin /lib/firmware/nxp
+  cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
+  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
 
   if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
