@@ -9,13 +9,15 @@ COUNTRY=US
 
 function load_files() {
   # check for the existence of folder, "crda"
-  if [ ! -d "/usr/lib/crda" ]
-  then
-    echo "Directory /usr/lib/crda does not exist."
-    echo "Creating crda in /usr/lib/"
-    mkdir /usr/lib/crda
-    cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
+  if [ -d "/usr/lib/crda" ]; then
+#    echo "Directory /usr/lib/crda exist."
+#    echo "Removing crda from /usr/lib/"
+    rm -rf /usr/lib/crda
   fi
+
+#  echo "creating crda in /usr/lib/"
+  mkdir /usr/lib/crda
+  cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
 
   # Copy regulatory files
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin /usr/lib/crda
