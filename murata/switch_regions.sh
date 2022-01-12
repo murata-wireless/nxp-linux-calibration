@@ -9,15 +9,13 @@ COUNTRY=US
 
 function load_files() {
   # check for the existence of folder, "crda"
-  if [ -d "/usr/lib/crda" ]; then
-#    echo "Directory /usr/lib/crda exist."
-#    echo "Removing crda from /usr/lib/"
-    rm -rf /usr/lib/crda
+  if [ ! -d "/usr/lib/crda" ]
+  then
+    echo "Directory /usr/lib/crda does not exist."
+    echo "Creating crda in /usr/lib/"
+    mkdir /usr/lib/crda
+    cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
   fi
-
-#  echo "creating crda in /usr/lib/"
-  mkdir /usr/lib/crda
-  cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
 
   # Copy regulatory files
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin /usr/lib/crda
@@ -133,8 +131,32 @@ function update_conf_file_1xk() {
 }
 
 function update_conf_file_2ds() {
-  # This is a placeholder function, to be updated when 2DS support is added.
-  echo ""
+  # Update the wifi_mod_para.conf file based on ${MODULE} and ${COUNTRY}. Keep a backup.
+  if [ ! -f /lib/firmware/nxp/wifi_mod_para.conf.orig ]; then
+    if [ -f /lib/firmware/nxp/wifi_mod_para.conf ]; then
+      cp /lib/firmware/nxp/wifi_mod_para.conf /lib/firmware/nxp/wifi_mod_para.conf.orig
+    fi
+  fi
+
+  cp /lib/firmware/nxp/murata/files/wifi_mod_para_murata.conf /lib/firmware/nxp/wifi_mod_para.conf
+
+  case ${COUNTRY} in
+    US)
+      ;;
+    EU)
+      sed -i '173s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    JP)
+      sed -i '173s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    CA)
+      sed -i '173s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    *)
+      ;;
+  esac
+
+  sed -i 's/murata/	/g' /lib/firmware/nxp/wifi_mod_para.conf
 }
 
 function switch_to_1zm() {
