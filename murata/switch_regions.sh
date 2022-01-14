@@ -208,6 +208,10 @@ function usage() {
   echo ""
   echo "  <country code> is one of :"
   echo "     CA, EU, JP, US"
+  echo "     CA - Canada"
+  echo "     EU - European Union"
+  echo "     JP - Japan"
+  echo "     US - United States"
   echo ""
 }
 
@@ -221,7 +225,7 @@ case ${2^^} in
     COUNTRY=US
     ;;
   EU)
-    COUNTRY=EU
+    COUNTRY=DE
     ;;
   JP)
     COUNTRY=JP
