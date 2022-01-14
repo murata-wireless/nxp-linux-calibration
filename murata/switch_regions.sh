@@ -212,6 +212,7 @@ function usage() {
   echo "     EU - European Union"
   echo "     JP - Japan"
   echo "     US - United States"
+  echo "NOTE: Country code for EU will be displayed as DE when you use the command - iw reg get"
   echo ""
 }
 
