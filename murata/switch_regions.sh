@@ -213,6 +213,7 @@ function usage() {
   echo "     JP - Japan"
   echo "     US - United States"
   echo "NOTE: Country code for EU will be displayed as DE when you use the command - iw reg get"
+  echo "      For setting the country code EU, user should use : iw reg set DE"
   echo ""
 }
 
@@ -226,7 +227,7 @@ case ${2^^} in
     COUNTRY=US
     ;;
   EU)
-    COUNTRY=DE
+    COUNTRY=EU
     ;;
   JP)
     COUNTRY=JP
