@@ -31,6 +31,11 @@ function load_files() {
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
   fi
 
+  # Changing the country code internally to set to "DE" instead of "EU"
+  if [ ${COUNTRY} == "EU" ]; then
+ 	COUNTRY=DE
+  fi
+
   iw reg set ${COUNTRY}
   echo "Setup complete."
   echo ""
