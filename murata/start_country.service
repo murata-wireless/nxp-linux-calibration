@@ -1,0 +1,13 @@
+[Unit]
+Description=start country
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/root/
+ExecStart=/bin/bash /home/root/startup.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
