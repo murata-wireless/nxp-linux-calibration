@@ -15,9 +15,9 @@ function clean_up() {
     systemctl disable start_country.service
   fi
 
-  # if there is startup.sh, then delete
-  if [ -e /usr/sbin/startup.sh ]; then
-    rm /usr/sbin/startup.sh
+  # if there is startup_setcountry, then delete
+  if [ -e /usr/sbin/startup_setcountry.sh ]; then
+    rm /usr/sbin/startup_setcountry.sh
   fi
 }
 
@@ -51,8 +51,8 @@ function load_files() {
  	COUNTRY=DE
   fi
 
-  # Create "startup.sh" with the new country code
-  cat <<EOT > /usr/sbin/startup.sh
+  # Create "startup_setcountry.sh" with the new country code
+  cat <<EOT > /usr/sbin/startup_setcountry.sh
 #!/bin/bash
 iw reg set ${COUNTRY}
 EOT

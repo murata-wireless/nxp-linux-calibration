@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Type=simple
 WorkingDirectory=/usr/sbin
-ExecStart=/bin/bash /usr/sbin/startup.sh
+ExecStart=/bin/bash /usr/sbin/startup_setcountry.sh
 Restart=always
 
 [Install]
