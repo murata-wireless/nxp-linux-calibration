@@ -9,7 +9,7 @@ COUNTRY=US
 
 function clean_up() {
   # Disable country code service
-  if [ -e /etc/depmod.d/nxp_depmod.conf ]; then
+  if [ -e /etc/systemd/system/start_country.service ]; then
     systemctl stop start_country.service
     # Disable country code service
     systemctl disable start_country.service
