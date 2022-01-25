@@ -7,6 +7,19 @@ MODULE=1ZM
 TYPE=`getconf LONG_BIT`
 COUNTRY=US
 
+function clean_up() {
+  # Disable country code service
+  systemctl stop start_country.service
+
+  # Disable country code service
+  systemctl disable start_country.service
+
+  # if there is startup.sh, then delete
+    if [ -e /home/root/startup.sh ]; then
+    rm /home/root/startup.sh
+  fi
+}
+
 function load_files() {
   # check for the existence of folder, "crda"
   if [ ! -d "/usr/lib/crda" ]
@@ -27,20 +40,34 @@ function load_files() {
   cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
 
+  # Copy bluetooth power config file
   if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
   fi
 
-  # Changing the country code internally to set to "DE" instead of "EU"
+  # Changing the country code internally for EU to set to "DE" instead of "EU"
   if [ ${COUNTRY} == "EU" ]; then
  	COUNTRY=DE
   fi
 
+  # Create "startup.sh" with the new country code
+  cat <<EOT > /home/root/startup.sh
+#!/bin/bash
+iw reg set ${COUNTRY}
+EOT
+
   iw reg set ${COUNTRY}
   echo "Setup complete."
   echo ""
+
   iw reg get
   echo ""
+
+  # Enable country code service
+  systemctl enable start_country.service
+
+  echo "Please reboot and then enter the following command for verification"
+  echo "$ iw reg get"
 }
 
 function update_conf_file_1zm() {
@@ -168,6 +195,7 @@ function switch_to_1zm() {
   echo ""
   echo "Setting up for 1ZM (${TYPE} bit):"
   echo "----------------------------"
+  clean_up
   load_files
   update_conf_file_1zm
   echo ""
@@ -177,6 +205,7 @@ function switch_to_1ym() {
   echo ""
   echo "Setting up for 1YM (${TYPE} bit):"
   echo "----------------------------"
+  clean_up
   load_files
   update_conf_file_1ym
   echo ""
@@ -186,6 +215,7 @@ function switch_to_1xk() {
   echo ""
   echo "Setting up for 1XK (${TYPE} bit):"
   echo "----------------------------"
+  clean_up
   load_files
   update_conf_file_1xk
   echo ""
@@ -195,6 +225,7 @@ function switch_to_2ds() {
   echo ""
   echo "Setting up for 2DS (${TYPE} bit):"
   echo "----------------------------"
+  clean_up
   load_files
   update_conf_file_2ds
   echo ""
