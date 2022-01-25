@@ -56,6 +56,9 @@ function load_files() {
 iw reg set ${COUNTRY}
 EOT
 
+  # Copy start_country.service to /etc/systemd/system/
+  cp /lib/firmware/nxp/murata/files/start_country.service /etc/systemd/system
+
   iw reg set ${COUNTRY}
   echo "Setup complete."
   echo ""
