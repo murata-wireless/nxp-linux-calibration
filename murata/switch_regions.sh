@@ -9,14 +9,15 @@ COUNTRY=US
 
 function clean_up() {
   # Disable country code service
-  systemctl stop start_country.service
-
-  # Disable country code service
-  systemctl disable start_country.service
+  if [ -e /etc/depmod.d/nxp_depmod.conf ]; then
+    systemctl stop start_country.service
+    # Disable country code service
+    systemctl disable start_country.service
+  fi
 
   # if there is startup.sh, then delete
-    if [ -e /home/root/startup.sh ]; then
-    rm /home/root/startup.sh
+  if [ -e /usr/sbin/startup.sh ]; then
+    rm /usr/sbin/startup.sh
   fi
 }
 
@@ -51,7 +52,7 @@ function load_files() {
   fi
 
   # Create "startup.sh" with the new country code
-  cat <<EOT > /home/root/startup.sh
+  cat <<EOT > /usr/sbin/startup.sh
 #!/bin/bash
 iw reg set ${COUNTRY}
 EOT

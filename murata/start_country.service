@@ -4,8 +4,8 @@ After=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/root/
-ExecStart=/bin/bash /home/root/startup.sh
+WorkingDirectory=/usr/sbin
+ExecStart=/bin/bash /usr/sbin/startup.sh
 Restart=always
 
 [Install]
