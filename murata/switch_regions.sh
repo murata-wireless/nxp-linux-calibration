@@ -21,31 +21,7 @@ function clean_up() {
   fi
 }
 
-function load_files() {
-  # check for the existence of folder, "crda"
-  if [ ! -d "/usr/lib/crda" ]
-  then
-    echo "Directory /usr/lib/crda does not exist."
-    echo "Creating crda in /usr/lib/"
-    mkdir /usr/lib/crda
-    cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
-  fi
-
-  # Copy regulatory files
-  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin /usr/lib/crda
-  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/crda /usr/sbin/
-  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/regdbdump /usr/sbin/
-  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/libreg.so /usr/lib/
-
-  # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
-  cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
-  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
-
-  # Copy bluetooth power config file
-  if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
-    cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
-  fi
-
+function set_countrycode() {
   # Changing the country code internally for EU to set to "DE" instead of "EU"
   if [ ${COUNTRY} == "EU" ]; then
  	COUNTRY=DE
@@ -72,6 +48,32 @@ EOT
 
   echo "Please reboot and then enter the following command for verification"
   echo "$ iw reg get"
+}
+
+function load_files() {
+  # check for the existence of folder, "crda"
+  if [ ! -d "/usr/lib/crda" ]
+  then
+    echo "Directory /usr/lib/crda does not exist."
+    echo "Creating crda in /usr/lib/"
+    mkdir /usr/lib/crda
+    cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
+  fi
+
+  # Copy regulatory files
+  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin /usr/lib/crda
+  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/crda /usr/sbin/
+  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/regdbdump /usr/sbin/
+  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/libreg.so /usr/lib/
+
+  # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
+  cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
+  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
+
+  # Copy bluetooth power config file
+  if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
+    cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
+  fi
 }
 
 function update_conf_file_1zm() {
@@ -202,6 +204,7 @@ function switch_to_1zm() {
   clean_up
   load_files
   update_conf_file_1zm
+  set_countrycode
   echo ""
 }
 
@@ -212,6 +215,7 @@ function switch_to_1ym() {
   clean_up
   load_files
   update_conf_file_1ym
+  set_countrycode
   echo ""
 }
 
@@ -222,6 +226,7 @@ function switch_to_1xk() {
   clean_up
   load_files
   update_conf_file_1xk
+  set_countrycode
   echo ""
 }
 
@@ -232,6 +237,7 @@ function switch_to_2ds() {
   clean_up
   load_files
   update_conf_file_2ds
+  set_countrycode
   echo ""
 }
 
@@ -305,3 +311,7 @@ case ${1^^} in
     exit 1
     ;;
 esac
+
+
+
+
