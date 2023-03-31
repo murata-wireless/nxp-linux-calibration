@@ -2,30 +2,18 @@
 
 # Switching Tx power binary, edmac, bluetooth power, and regulatory.bin files based on module selection"
 
-VERSION="1.0"
+VERSION="2.0"
 MODULE=1ZM
 TYPE=`getconf LONG_BIT`
 COUNTRY=US
 
 function load_files() {
-  # check for the existence of folder, "crda"
-  if [ ! -d "/usr/lib/crda" ]
-  then
-    echo "Directory /usr/lib/crda does not exist."
-    echo "Creating crda in /usr/lib/"
-    mkdir /usr/lib/crda
-    cp /lib/firmware/nxp/murata/files/regulatory.rules /etc/udev/rules.d/
-  fi
-
-  # Copy regulatory files
-  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin /usr/lib/crda
-  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/crda /usr/sbin/
-  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/regdbdump /usr/sbin/
-  cp /lib/firmware/nxp/murata/files/${TYPE}_bit/libreg.so /usr/lib/
-
   # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
+  if [ ${MODULE} == "1XL" ]; then
+    cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
+  fi
 
   if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
@@ -52,14 +40,14 @@ function update_conf_file_1zm() {
     US)
       ;;
     EU)
-      sed -i '83s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '84 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '81s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '82 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
-      sed -i '83s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '81s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     CA)
-      sed -i '83s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '81s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     *)
       ;;
@@ -81,18 +69,18 @@ function update_conf_file_1ym() {
     US)
       ;;
     EU)
-      sed -i '39s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '103s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '40 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '105 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '38s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '99s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '39 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '101 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
-      sed -i '39s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '103s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '38s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '99s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     CA)
-      sed -i '39s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '103s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '38s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '99s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     *)
       ;;
@@ -114,14 +102,14 @@ function update_conf_file_1xk() {
     US)
       ;;
     EU)
-      sed -i '163s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '164 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '162s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '163 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
-      sed -i '163s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '162s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     CA)
-      sed -i '163s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '162s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     *)
       ;;
@@ -145,12 +133,67 @@ function update_conf_file_2ds() {
       ;;
     EU)
       sed -i '173s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '174 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
       sed -i '173s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     CA)
       sed -i '173s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    *)
+      ;;
+  esac
+
+  sed -i 's/murata/	/g' /lib/firmware/nxp/wifi_mod_para.conf
+}
+
+function update_conf_file_1xl_2xs() {
+  # Update the wifi_mod_para.conf file based on ${MODULE} and ${COUNTRY}. Keep a backup.
+  if [ ! -f /lib/firmware/nxp/wifi_mod_para.conf.orig ]; then
+    if [ -f /lib/firmware/nxp/wifi_mod_para.conf ]; then
+      cp /lib/firmware/nxp/wifi_mod_para.conf /lib/firmware/nxp/wifi_mod_para.conf.orig
+    fi
+  fi
+
+  cp /lib/firmware/nxp/murata/files/wifi_mod_para_murata.conf /lib/firmware/nxp/wifi_mod_para.conf
+
+  case ${COUNTRY} in
+    US)
+      ;;
+    EU)
+      sed -i '111s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '112s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '124s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '125s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '137s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '138s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '150s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '151s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '113 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '127 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '141 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '155 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    JP)
+      sed -i '111s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '112s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '124s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '125s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '137s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '138s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '150s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '151s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    CA)
+      sed -i '111s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '112s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '124s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '125s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '137s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '138s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '150s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '151s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     *)
       ;;
@@ -195,6 +238,24 @@ function switch_to_2ds() {
   echo ""
 }
 
+function switch_to_1xl() {
+  echo ""
+  echo "Setting up for 1XL (${TYPE} bit):"
+  echo "----------------------------"
+  load_files
+  update_conf_file_1xl_2xs
+  echo ""
+}
+
+function switch_to_2xs() {
+  echo ""
+  echo "Setting up for 2XS (${TYPE} bit):"
+  echo "----------------------------"
+  load_files
+  update_conf_file_1xl_2xs
+  echo ""
+}
+
 function usage() {
   echo ""
   echo "Version: $VERSION"
@@ -204,7 +265,7 @@ function usage() {
   echo ""
   echo "Where:"
   echo "  <module> is one of :"
-  echo "     1zm, 1ym, 1xk, 2ds"
+  echo "     1zm, 1ym, 1xk, 2ds, 1xl, 2xs"
   echo ""
   echo "  <country code> is one of :"
   echo "     CA, EU, JP, US"
@@ -252,6 +313,15 @@ case ${1^^} in
   YM|1YM)
     MODULE=1YM
     switch_to_1ym
+    ;;
+  XL|1XL)
+    MODULE=1XL
+    switch_to_1xl
+    ;;
+  XS|2XS)
+    # 1XL and 2XS share the same files
+    MODULE=1XL
+    switch_to_2xs
     ;;
   *)
     #current
