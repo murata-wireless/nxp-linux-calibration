@@ -29,32 +29,17 @@ country 00:
 
 country CA: DFS-FCC
 	(2402 - 2472 @ 20), (30)
-	(5170 - 5250 @ 40), (23), NO-OUTDOOR, AUTO-BW
-	(5250 - 5330 @ 40), (23), DFS, AUTO-BW
-	(5490 - 5590 @ 40), (23), DFS, AUTO-BW
-	(5650 - 5730 @ 40), (23), DFS, AUTO-BW
-	(5735 - 5835 @ 40), (30), AUTO-BW
 
 
 country DE: DFS-ETSI
 	(2400 - 2482 @ 20), (100 mW)
-	(5170 - 5250 @ 40), (200 mW), NO-OUTDOOR, AUTO-BW, wmmrule=ETSI
-	(5250 - 5330 @ 40), (200 mW), NO-OUTDOOR, DFS, AUTO-BW, wmmrule=ETSI
-	(5490 - 5710 @ 40), (200 mW), DFS,AUTO-BW, wmmrule=ETSI
-	(5735 - 5855 @ 40), (25 mW), AUTO-BW
 
 
 country JP: DFS-JP
 	(2402 - 2482 @ 20), (20)
-	(5170 - 5250 @ 40), (20), NO-OUTDOOR, AUTO-BW
-	(5250 - 5330 @ 40), (20), NO-OUTDOOR, DFS, AUTO-BW
-	(5490 - 5710 @ 40), (23), DFS, AUTO-BW
 
 
 country US: DFS-FCC
 	(2400 - 2472 @ 20), (30)
-	(5170 - 5250 @ 40), (23), AUTO-BW
-	(5250 - 5330 @ 40), (23), DFS, AUTO-BW
-	(5490 - 5730 @ 40), (23), DFS, AUTO-BW
-	(5735 - 5835 @ 40), (30), AUTO-BW
+
 

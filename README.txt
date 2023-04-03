@@ -86,15 +86,15 @@ Bluetooth Tx power configuration file:
 +========+=======================+=========================================+
 |  No    |  File Name            |  2DS                                    |
 +========+=======================+=========================================+
-|  1     |  txpower_US.bin       |  9e8bfffae71324ef0b4a93d545454bff       |
-|  2     |  txpower_CA.bin       |  9e8bfffae71324ef0b4a93d545454bff       |
-|  3     |  txpower_EU.bin       |  46c6faab05fcbe10c3a94d1625e92cdb       |
-|  4     |  txpower_JP.bin       |  b87a5b8bc1bea5f90da6dd6ed910e71c       |
-|  5     |  db.txt               |  a34c5151e81b043534d11ab3ed35be73       |
-|  6     |  ed_mac.bin           |  0d4fe7e8263c9316eab28db8d9f9d8e7       |
-|  7     |  regulatory.db        |  dd6aa3af1c8fb95384199af7fc7f1c00       |
-|  8     |  regulatory.db.p7s    |  6f379d0751b341dd3f1764b666143066       |
-+========+=======================+=========================================+
+|  1     |  txpower_US.bin       |  2dd1aacf4532fe9667b5bb0744598ece       |
+|  2     |  txpower_CA.bin       |  2dd1aacf4532fe9667b5bb0744598ece       |
+|  3     |  txpower_EU.bin       |  f73f5939ed3f67b6dfcd5b5a600356d7       |
+|  4     |  txpower_JP.bin       |  0801095d2e7e21fcd6ca25d10b3337d7       |
+|  5     |  db.txt               |  ef55b9d535b6e76cc5f794512bfecd85       |
+|  6     |  ed_mac.bin           |  368528bfcab2869f4e5dd512f13cfe0f       |
+|  7     |  regulatory.db        |  609ee034bd59e2b12f2afaf1a1503a21       |
+|  8     |  regulatory.db.p7s    |  7edc0885c6e0b265cb799c9232984244       |
++========+=======================+=========================================+	
 
 +========+=======================+=========================================+
 |  No    |  File Name            |  1ZM                                    |
