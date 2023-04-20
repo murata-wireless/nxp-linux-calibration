@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Switching Tx power binary, edmac, bluetooth power, and regulatory.bin files based on module selection"
+# Switching Tx power binary, edmac, bluetooth power, and regulatory files based on module selection"
 
 VERSION="2.0"
 MODULE=1ZM
@@ -11,6 +11,7 @@ function load_files() {
   # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
+
   if [ ${MODULE} == "1XL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
   fi
@@ -18,7 +19,11 @@ function load_files() {
   if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
   fi
-
+  
+  # copy regulatory.db and regulatory.db.p7s to /lib/firmwware
+  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db     /lib/firmware
+  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db.p7s /lib/firmware
+  
   iw reg set ${COUNTRY}
   echo "Setup complete."
   echo ""
