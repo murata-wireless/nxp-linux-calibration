@@ -71,6 +71,20 @@ Bluetooth Tx power configuration file:
 +========+=======================+=========================================+
 
 +========+=======================+=========================================+
+|  No    |  File Name            |  2EL/2DL                                |
++========+=======================+=========================================+
+|  1     |  txpower_US.bin       |  a3d2a555808e1d02131c5f57074747ee       |
+|  2     |  txpower_CA.bin       |  da4e6c471530c993aa3c2945a4b51482       |
+|  3     |  txpower_EU.bin       |  65fb5c91c8a00343c0a6327131a1cce9       |
+|  4     |  txpower_JP.bin       |  dbeed6e0ccd5b898bf2899e3073a2977       |
+|  5     |  rutxpower_US.bin     |  81e27f893e6581876534d53268a8362c       |
+|  6     |  rutxpower_CA.bin     |  db2204d750f2b18c801bf9f98e2fc374       |
+|  7     |  rutxpower_EU.bin     |  1cd0ec5652184ccb7cfeb4da768a311b       |
+|  8     |  rutxpower_JP.bin     |  ac82f3192bea36a01effbcb2be5c0251       |
++========+=======================+=========================================+
+
+
++========+=======================+=========================================+
 |  No    |  File Name            |  1YM                                    |
 +========+=======================+=========================================+
 |  1     |  txpower_US.bin       |  c53438c16f3ab97d5d427f68448d9968       |
@@ -129,6 +143,7 @@ Content of “wifi_mod_para.conf”:
     1XK      - SD8978
     2DS      - SD8801
     1XL/2XS  - SD9098
+    2EL/2DL  - IW612
 
 2. For the parameter, "txpwrlimit_cfg", Select appropriate module name, and corresponding country, when specifying txpower_<COUNTRY_CODE>.bin
    Ex:
@@ -149,7 +164,7 @@ SD8997 = {
 	ps_mode=1
 	auto_ds=1
 	host_mlme=1
-	fw_name=nxp/sdiouart8987_combo_v0.bin
+	fw_name=nxp/sdiouart8997_combo_v0.bin
 	txpwrlimit_cfg=nxp/txpower_US.bin
 }
 
