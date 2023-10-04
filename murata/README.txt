@@ -73,14 +73,14 @@ Bluetooth Tx power configuration file:
 +========+=======================+=========================================+
 |  No    |  File Name            |  2EL/2DL                                |
 +========+=======================+=========================================+
-|  1     |  txpower_US.bin       |  a3d2a555808e1d02131c5f57074747ee       |
-|  2     |  txpower_CA.bin       |  da4e6c471530c993aa3c2945a4b51482       |
-|  3     |  txpower_EU.bin       |  65fb5c91c8a00343c0a6327131a1cce9       |
-|  4     |  txpower_JP.bin       |  dbeed6e0ccd5b898bf2899e3073a2977       |
-|  5     |  rutxpower_US.bin     |  81e27f893e6581876534d53268a8362c       |
-|  6     |  rutxpower_CA.bin     |  db2204d750f2b18c801bf9f98e2fc374       |
-|  7     |  rutxpower_EU.bin     |  1cd0ec5652184ccb7cfeb4da768a311b       |
-|  8     |  rutxpower_JP.bin     |  ac82f3192bea36a01effbcb2be5c0251       |
+|  1     |  txpower_US.bin       |  3d7a69a2c41fa6fa55b31295ff4ff3f3       |
+|  2     |  txpower_CA.bin       |  69079f9aa87adc39707fb81985d62056       |
+|  3     |  txpower_EU.bin       |  ed3bd3dbb4de7da4d58b4b709c15e43d       |
+|  4     |  txpower_JP.bin       |  5180d7a4e06d48a879d1b5ce38663969       |
+|  5     |  rutxpower_US.bin     |  61a2e1be72465808322919513849b20d       |
+|  6     |  rutxpower_CA.bin     |  f682d508c1a1b628c66454d9854dc4e5       |
+|  7     |  rutxpower_EU.bin     |  e0f39f2abe42ee2902d832ad3c1df6b4       |
+|  8     |  rutxpower_JP.bin     |  d92f4049593f76f2e2491d64db5e43af       |
 +========+=======================+=========================================+
 
 
