@@ -11,12 +11,10 @@ function load_files() {
   # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
   if [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
-    cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac_ctrl_V2_nw61x.conf /lib/firmware/nxp
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_US_CA_JP.sh /lib/firmware/nxp
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_EU.sh /lib/firmware/nxp
-  else
-    cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
   fi
+  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
 
   if [ ${MODULE} == "1XL" ] || [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
@@ -27,11 +25,7 @@ function load_files() {
   fi
   
   # copy regulatory.db and regulatory.db.p7s to /lib/firmware
-  if [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
-    cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.bin    /lib/firmware
-  else
-    cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db     /lib/firmware
-  fi
+  cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db     /lib/firmware
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db.p7s /lib/firmware
   
   iw reg set ${COUNTRY}

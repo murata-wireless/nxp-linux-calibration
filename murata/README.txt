@@ -82,8 +82,8 @@ Bluetooth Tx power configuration file:
 |  7     |  rutxpower_EU.bin            | e0f39f2abe42ee2902d832ad3c1df6b4 |
 |  8     |  rutxpower_JP.bin            | d92f4049593f76f2e2491d64db5e43af |
 |  9     |  db.txt                      | 2b6a6296b92e00a2882c7fcbcfd0586b |
-|  10    |  ed_mac_ctrl_V2_nw61x.conf   | 587aec9b75774300976ecb953edc4530 |
-|  11    |  regulatory.bin              | 69b881b11833af2f01a96c8ca6fbfcfd |
+|  10    |  ed_mac.bin                  | COMING SOON                      |
+|  11    |  regulatory.db               | COMING SOON                      |
 |  12    |  regulatory.db.p7s           | e326c4f30957750ead209dd6c0619ee8 |
 |  13    |  bt_power_config_US_CA_JP.sh | a4c6f3adf51ffcbfe4adafb256da849c |
 |  14    |  bt_power_config_EU.sh       | d37587d80491eff89d64a79eb8ee12f2 |
@@ -148,6 +148,7 @@ Content of “wifi_mod_para.conf”:
     1XK      - SD8978
     2DS      - SD8801
     1XL/2XS  - SD9098
+    2DL/2EL  - SDIW612
 
 2. For the parameter, "txpwrlimit_cfg", Select appropriate module name, and corresponding country, when specifying txpower_<COUNTRY_CODE>.bin
    Ex:
