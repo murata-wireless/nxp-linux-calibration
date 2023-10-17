@@ -70,18 +70,24 @@ Bluetooth Tx power configuration file:
 |  12    |  regulatory.db.p7s    |  9b308748c3b66d39da10317bad28e7a8       |
 +========+=======================+=========================================+
 
-+========+=======================+=========================================+
-|  No    |  File Name            |  2EL/2DL                                |
-+========+=======================+=========================================+
-|  1     |  txpower_US.bin       |  3d7a69a2c41fa6fa55b31295ff4ff3f3       |
-|  2     |  txpower_CA.bin       |  69079f9aa87adc39707fb81985d62056       |
-|  3     |  txpower_EU.bin       |  ed3bd3dbb4de7da4d58b4b709c15e43d       |
-|  4     |  txpower_JP.bin       |  5180d7a4e06d48a879d1b5ce38663969       |
-|  5     |  rutxpower_US.bin     |  61a2e1be72465808322919513849b20d       |
-|  6     |  rutxpower_CA.bin     |  f682d508c1a1b628c66454d9854dc4e5       |
-|  7     |  rutxpower_EU.bin     |  e0f39f2abe42ee2902d832ad3c1df6b4       |
-|  8     |  rutxpower_JP.bin     |  d92f4049593f76f2e2491d64db5e43af       |
-+========+=======================+=========================================+
++========+==============================+==================================+
+|  No    |  File Name                   |  2EL/2DL                         |
++========+==============================+==================================+
+|  1     |  txpower_US.bin              | 3d7a69a2c41fa6fa55b31295ff4ff3f3 |
+|  2     |  txpower_CA.bin              | 69079f9aa87adc39707fb81985d62056 |
+|  3     |  txpower_EU.bin              | ed3bd3dbb4de7da4d58b4b709c15e43d |
+|  4     |  txpower_JP.bin              | 5180d7a4e06d48a879d1b5ce38663969 |
+|  5     |  rutxpower_US.bin            | 61a2e1be72465808322919513849b20d |
+|  6     |  rutxpower_CA.bin            | f682d508c1a1b628c66454d9854dc4e5 |
+|  7     |  rutxpower_EU.bin            | e0f39f2abe42ee2902d832ad3c1df6b4 |
+|  8     |  rutxpower_JP.bin            | d92f4049593f76f2e2491d64db5e43af |
+|  9     |  db.txt                      | 2b6a6296b92e00a2882c7fcbcfd0586b |
+|  10    |  ed_mac.bin                  | COMING SOON                      |
+|  11    |  regulatory.db               | COMING SOON                      |
+|  12    |  regulatory.db.p7s           | e326c4f30957750ead209dd6c0619ee8 |
+|  13    |  bt_power_config_US_CA_JP.sh | a4c6f3adf51ffcbfe4adafb256da849c |
+|  14    |  bt_power_config_EU.sh       | d37587d80491eff89d64a79eb8ee12f2 |
++========+=============================+===================================+
 
 +========+=======================+=========================================+
 |  No    |  File Name            |  1YM                                    |
@@ -142,6 +148,7 @@ Content of “wifi_mod_para.conf”:
     1XK      - SD8978
     2DS      - SD8801
     1XL/2XS  - SD9098
+    2DL/2EL  - SDIW612
 
 2. For the parameter, "txpwrlimit_cfg", Select appropriate module name, and corresponding country, when specifying txpower_<COUNTRY_CODE>.bin
    Ex:

@@ -10,9 +10,13 @@ COUNTRY=US
 function load_files() {
   # Copy Tx power, edmac and bluetooth power files to /lib/firmware/nxp
   cp /lib/firmware/nxp/murata/files/${MODULE}/txpower_*.bin /lib/firmware/nxp
+  if [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
+    cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_US_CA_JP.sh /lib/firmware/nxp
+    cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_EU.sh /lib/firmware/nxp
+  fi
   cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
 
-  if [ ${MODULE} == "1XL" ]; then
+  if [ ${MODULE} == "1XL" ] || [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
   fi
 
@@ -20,7 +24,7 @@ function load_files() {
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
   fi
   
-  # copy regulatory.db and regulatory.db.p7s to /lib/firmwware
+  # copy regulatory.db and regulatory.db.p7s to /lib/firmware
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db     /lib/firmware
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db.p7s /lib/firmware
   
@@ -207,6 +211,38 @@ function update_conf_file_1xl_2xs() {
   sed -i 's/murata/	/g' /lib/firmware/nxp/wifi_mod_para.conf
 }
 
+function update_conf_file_2dl_2el() {
+  # Update the wifi_mod_para.conf file based on ${MODULE} and ${COUNTRY}. Keep a backup.
+  if [ ! -f /lib/firmware/nxp/wifi_mod_para.conf.orig ]; then
+    if [ -f /lib/firmware/nxp/wifi_mod_para.conf ]; then
+      cp /lib/firmware/nxp/wifi_mod_para.conf /lib/firmware/nxp/wifi_mod_para.conf.orig
+    fi
+  fi
+
+  cp /lib/firmware/nxp/murata/files/wifi_mod_para_murata.conf /lib/firmware/nxp/wifi_mod_para.conf
+
+  case ${COUNTRY} in
+    US)
+      ;;
+    EU)
+      sed -i '184s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '185s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    JP)
+      sed -i '184s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '185s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    CA)
+      sed -i '184s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '185s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    *)
+      ;;
+  esac
+
+  sed -i 's/murata/	/g' /lib/firmware/nxp/wifi_mod_para.conf
+}
+
 function switch_to_1zm() {
   echo ""
   echo "Setting up for 1ZM (${TYPE} bit):"
@@ -261,6 +297,24 @@ function switch_to_2xs() {
   echo ""
 }
 
+function switch_to_2dl() {
+  echo ""
+  echo "Setting up for 2DL (${TYPE} bit):"
+  echo "----------------------------"
+  load_files
+  update_conf_file_2dl_2el
+  echo ""
+}
+
+function switch_to_2el() {
+  echo ""
+  echo "Setting up for 2EL (${TYPE} bit):"
+  echo "----------------------------"
+  load_files
+  update_conf_file_2dl_2el
+  echo ""
+}
+
 function usage() {
   echo ""
   echo "Version: $VERSION"
@@ -270,7 +324,7 @@ function usage() {
   echo ""
   echo "Where:"
   echo "  <module> is one of :"
-  echo "     1zm, 1ym, 1xk, 2ds, 1xl, 2xs"
+  echo "     1zm, 1ym, 1xk, 2ds, 1xl, 2xs, 2dl, 2el"
   echo ""
   echo "  <country code> is one of :"
   echo "     CA, EU, JP, US"
@@ -331,6 +385,14 @@ case ${1^^} in
     switch_to_2xs
     # Revert the changes as the driver is not loading properly
     cp /lib/firmware/nxp/wifi_mod_para.conf.orig /lib/firmware/nxp/wifi_mod_para.conf
+    ;;
+  DL|2DL)
+    MODULE=2DL
+    switch_to_2dl
+    ;;
+  EL|2EL)
+    MODULE=2EL
+    switch_to_2el
     ;;
   *)
     #current
