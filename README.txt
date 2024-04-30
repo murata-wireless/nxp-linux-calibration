@@ -70,19 +70,24 @@ Bluetooth Tx power configuration file:
 |  12    |  regulatory.db.p7s    |  9b308748c3b66d39da10317bad28e7a8       |
 +========+=======================+=========================================+
 
-+========+=======================+=========================================+
-|  No    |  File Name            |  2EL/2DL                                |
-+========+=======================+=========================================+
-|  1     |  txpower_US.bin       |  a3d2a555808e1d02131c5f57074747ee       |
-|  2     |  txpower_CA.bin       |  da4e6c471530c993aa3c2945a4b51482       |
-|  3     |  txpower_EU.bin       |  65fb5c91c8a00343c0a6327131a1cce9       |
-|  4     |  txpower_JP.bin       |  dbeed6e0ccd5b898bf2899e3073a2977       |
-|  5     |  rutxpower_US.bin     |  81e27f893e6581876534d53268a8362c       |
-|  6     |  rutxpower_CA.bin     |  db2204d750f2b18c801bf9f98e2fc374       |
-|  7     |  rutxpower_EU.bin     |  1cd0ec5652184ccb7cfeb4da768a311b       |
-|  8     |  rutxpower_JP.bin     |  ac82f3192bea36a01effbcb2be5c0251       |
-+========+=======================+=========================================+
-
++========+==============================+==================================+
+|  No    |  File Name                   |  2EL/2DL                         |
++========+==============================+==================================+
+|  1     |  txpower_US.bin              | 3d7a69a2c41fa6fa55b31295ff4ff3f3 |
+|  2     |  txpower_CA.bin              | 69079f9aa87adc39707fb81985d62056 |
+|  3     |  txpower_EU.bin              | ed3bd3dbb4de7da4d58b4b709c15e43d |
+|  4     |  txpower_JP.bin              | 5180d7a4e06d48a879d1b5ce38663969 |
+|  5     |  rutxpower_US.bin            | 61a2e1be72465808322919513849b20d |
+|  6     |  rutxpower_CA.bin            | f682d508c1a1b628c66454d9854dc4e5 |
+|  7     |  rutxpower_EU.bin            | e0f39f2abe42ee2902d832ad3c1df6b4 |
+|  8     |  rutxpower_JP.bin            | d92f4049593f76f2e2491d64db5e43af |
+|  9     |  db.txt                      | 2b6a6296b92e00a2882c7fcbcfd0586b |
+|  10    |  ed_mac.bin                  | COMING SOON                      |
+|  11    |  regulatory.db               | COMING SOON                      |
+|  12    |  regulatory.db.p7s           | e326c4f30957750ead209dd6c0619ee8 |
+|  13    |  bt_power_config_US_CA_JP.sh | a4c6f3adf51ffcbfe4adafb256da849c |
+|  14    |  bt_power_config_EU.sh       | d37587d80491eff89d64a79eb8ee12f2 |
++========+=============================+===================================+
 
 +========+=======================+=========================================+
 |  No    |  File Name            |  1YM                                    |
@@ -164,7 +169,7 @@ SD8997 = {
 	ps_mode=1
 	auto_ds=1
 	host_mlme=1
-	fw_name=nxp/sdiouart8997_combo_v0.bin
+	fw_name=nxp/sdiouart8987_combo_v0.bin
 	txpwrlimit_cfg=nxp/txpower_US.bin
 }
 
