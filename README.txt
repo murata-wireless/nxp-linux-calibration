@@ -148,7 +148,7 @@ Content of “wifi_mod_para.conf”:
     1XK      - SD8978
     2DS      - SD8801
     1XL/2XS  - SD9098
-    2DL/2EL  - SDIW612
+    2EL/2DL  - IW612
 
 2. For the parameter, "txpwrlimit_cfg", Select appropriate module name, and corresponding country, when specifying txpower_<COUNTRY_CODE>.bin
    Ex:

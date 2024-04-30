@@ -377,14 +377,14 @@ case ${1^^} in
     MODULE=1XL
     switch_to_1xl
     # Revert the changes as the driver is not loading properly
-    cp /lib/firmware/nxp/wifi_mod_para.conf.orig /lib/firmware/nxp/wifi_mod_para.conf
+    # cp /lib/firmware/nxp/wifi_mod_para.conf.orig /lib/firmware/nxp/wifi_mod_para.conf
     ;;
   XS|2XS)
     # 1XL and 2XS share the same files
     MODULE=1XL
     switch_to_2xs
     # Revert the changes as the driver is not loading properly
-    cp /lib/firmware/nxp/wifi_mod_para.conf.orig /lib/firmware/nxp/wifi_mod_para.conf
+    # cp /lib/firmware/nxp/wifi_mod_para.conf.orig /lib/firmware/nxp/wifi_mod_para.conf
     ;;
   DL|2DL)
     MODULE=2DL
