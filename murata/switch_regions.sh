@@ -14,7 +14,8 @@ function load_files() {
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_US_CA_JP.sh /lib/firmware/nxp
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_EU.sh /lib/firmware/nxp
   fi
-  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
+# Not available for 2DL/2EL
+#  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
 
   if [ ${MODULE} == "1XL" ] || [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
