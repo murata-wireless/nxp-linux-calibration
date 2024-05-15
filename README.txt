@@ -131,10 +131,15 @@ Bluetooth Tx power configuration file:
 
 STEP 1:  Execute the script file, "switch_regions.sh"
 ======
-Ex: $./switch_regions.sh 1ZM
+Ex: $./switch_regions.sh 1ZM <COUNTRY_CODE>
+where <COUNTRY_CODE> is "US", "CA", "EU", and "JP"
 
+    US - For USA
+    CA - Canada
+    EU - European Union
+    JP - Japan
 
-STEP 2:  Modify the file, “wifi_mod_para.conf”. Please find the details below.
+STEP 2:  "switch_regions.sh" automatically modifies the file, “wifi_mod_para.conf”. Please find the details below.
 =======
 
 Content of “wifi_mod_para.conf”:
@@ -159,6 +164,17 @@ Content of “wifi_mod_para.conf”:
 
 For WLAN:
 ========
+Command example:
+---------------
+#switch_regions.sh 1ZM US
+#reboot
+#iw reg set <COUNTRY_CODE>
+#iw reg get
+
+NOTE: 
+=====  
+When using "iw reg set <COUNTRY_CODE>" command, For Europe the country code is "DE", as there isn't actually a country code named "EU".
+i.e "iw reg set DE"
 
 Ex: For 1ZM and to configure for US Region: modify the following structure.
 
