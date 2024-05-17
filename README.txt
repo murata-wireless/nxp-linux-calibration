@@ -186,7 +186,7 @@ SD8997 = {
 	ps_mode=1
 	auto_ds=1
 	host_mlme=1
-	fw_name=nxp/sdiouart8987_combo_v4.bin
+	fw_name=nxp/sdiouart8997_combo_v4.bin
 	txpwrlimit_cfg=nxp/txpower_US.bin
 }
 
