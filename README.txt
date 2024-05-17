@@ -151,7 +151,7 @@ Content of “wifi_mod_para.conf”:
     1ZM      - SD8987
     1YM-SDIO - SD8997
     1YM-PCIe - PCIE8997
-    1XK      - SD8978
+    1XK      - IW416
     2DS      - SD8801
     1XL/2XS  - SD9098
     2EL/2DL  - IW612
@@ -167,7 +167,7 @@ For WLAN:
 ========
 Command example:
 ---------------
-#switch_regions.sh 1ZM US
+#switch_regions.sh 1YM US
 #reboot
 #iw reg set <COUNTRY_CODE>
 #iw reg get
@@ -177,7 +177,7 @@ NOTE:
 When using "iw reg set <COUNTRY_CODE>" command, For Europe the country code is "DE", as there isn't actually a country code named "EU".
 i.e "iw reg set DE"
 
-Ex: For 1ZM and to configure for US Region: modify the following structure.
+Ex: For 1YM and to configure for US Region: modify the following structure.
 
 SD8997 = {
 	cfg80211_wext=0xf
@@ -186,7 +186,7 @@ SD8997 = {
 	ps_mode=1
 	auto_ds=1
 	host_mlme=1
-	fw_name=nxp/sdiouart8987_combo_v0.bin
+	fw_name=nxp/sdiouart8987_combo_v4.bin
 	txpwrlimit_cfg=nxp/txpower_US.bin
 }
 
@@ -199,5 +199,10 @@ Command example:
 ---------------
 # sh bt_power_config_1.sh
 
+NOTE: 
+=====  
+For 2EL/2DL modules, two separate Bluetooth Tx power configuration script files are provided:
+1. bt_power_config_US_CA_JP.sh : To configure Tx power for US, CA and JP countries.
+2. bt_power_config_EU.sh : To configure Tx power for EU contries.
 
 Refer the sample file, "wifi_mod_para_sample_US.conf" which is configured for modules (1ZM and 1YM to select US region).
