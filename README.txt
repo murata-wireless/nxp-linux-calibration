@@ -81,7 +81,7 @@ Bluetooth Tx power configuration file:
 |  6     |  rutxpower_CA.bin              | f682d508c1a1b628c66454d9854dc4e5 |
 |  7     |  rutxpower_EU.bin              | e0f39f2abe42ee2902d832ad3c1df6b4 |
 |  8     |  rutxpower_JP.bin              | d92f4049593f76f2e2491d64db5e43af |
-|  9     |  db.txt                        | 2b6a6296b92e00a2882c7fcbcfd0586b |
+|  9     |  db.txt                        | 62380BAA6F06DCF7A4F1F11D6FDF1BFC |
 |  10    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
 |  11    |  regulatory.db                 | b792d725cafbaf31bca0d11d471e5a16 |
 |  12    |  regulatory.db.p7s             | e326c4f30957750ead209dd6c0619ee8 |
@@ -186,7 +186,7 @@ SD8997 = {
 	ps_mode=1
 	auto_ds=1
 	host_mlme=1
-	fw_name=nxp/sdiouart8987_combo_v4.bin
+	fw_name=nxp/sdiouart8997_combo_v4.bin
 	txpwrlimit_cfg=nxp/txpower_US.bin
 }
 
