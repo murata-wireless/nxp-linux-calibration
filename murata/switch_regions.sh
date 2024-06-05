@@ -13,6 +13,7 @@ function load_files() {
   if [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_US_CA_JP.sh /lib/firmware/nxp
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_EU.sh /lib/firmware/nxp
+    cp /lib/firmware/nxp/murata/files/${MODULE}/WlanCalData_ext_NXP_dANT.conf /lib/firmware/nxp
   fi
   cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
 
