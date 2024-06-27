@@ -70,24 +70,25 @@ Bluetooth Tx power configuration file:
 |  12    |  regulatory.db.p7s    |  9b308748c3b66d39da10317bad28e7a8       |
 +========+=======================+=========================================+
 
-+========+==============================+==================================+
-|  No    |  File Name                   |  2EL/2DL                         |
-+========+==============================+==================================+
-|  1     |  txpower_US.bin              | 3d7a69a2c41fa6fa55b31295ff4ff3f3 |
-|  2     |  txpower_CA.bin              | 69079f9aa87adc39707fb81985d62056 |
-|  3     |  txpower_EU.bin              | ed3bd3dbb4de7da4d58b4b709c15e43d |
-|  4     |  txpower_JP.bin              | 5180d7a4e06d48a879d1b5ce38663969 |
-|  5     |  rutxpower_US.bin            | 61a2e1be72465808322919513849b20d |
-|  6     |  rutxpower_CA.bin            | f682d508c1a1b628c66454d9854dc4e5 |
-|  7     |  rutxpower_EU.bin            | e0f39f2abe42ee2902d832ad3c1df6b4 |
-|  8     |  rutxpower_JP.bin            | d92f4049593f76f2e2491d64db5e43af |
-|  9     |  db.txt                      | 2b6a6296b92e00a2882c7fcbcfd0586b |
-|  10    |  ed_mac.bin                  | COMING SOON                      |
-|  11    |  regulatory.db               | COMING SOON                      |
-|  12    |  regulatory.db.p7s           | e326c4f30957750ead209dd6c0619ee8 |
-|  13    |  bt_power_config_US_CA_JP.sh | a4c6f3adf51ffcbfe4adafb256da849c |
-|  14    |  bt_power_config_EU.sh       | d37587d80491eff89d64a79eb8ee12f2 |
-+========+=============================+===================================+
++========+================================+==================================+
+|  No    |  File Name                     |  2EL/2DL                         |
++========+================================+==================================+
+|  1     |  txpower_US.bin                | 3d7a69a2c41fa6fa55b31295ff4ff3f3 |
+|  2     |  txpower_CA.bin                | 69079f9aa87adc39707fb81985d62056 |
+|  3     |  txpower_EU.bin                | ed3bd3dbb4de7da4d58b4b709c15e43d |
+|  4     |  txpower_JP.bin                | 5180d7a4e06d48a879d1b5ce38663969 |
+|  5     |  rutxpower_US.bin              | 61a2e1be72465808322919513849b20d |
+|  6     |  rutxpower_CA.bin              | f682d508c1a1b628c66454d9854dc4e5 |
+|  7     |  rutxpower_EU.bin              | e0f39f2abe42ee2902d832ad3c1df6b4 |
+|  8     |  rutxpower_JP.bin              | d92f4049593f76f2e2491d64db5e43af |
+|  9     |  db.txt                        | 62380BAA6F06DCF7A4F1F11D6FDF1BFC |
+|  10    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
+|  11    |  regulatory.db                 | b792d725cafbaf31bca0d11d471e5a16 |
+|  12    |  regulatory.db.p7s             | e326c4f30957750ead209dd6c0619ee8 |
+|  13    |  bt_power_config_US_CA_JP.sh   | a4c6f3adf51ffcbfe4adafb256da849c |
+|  14    |  bt_power_config_EU.sh         | d37587d80491eff89d64a79eb8ee12f2 |
+|  15    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
++========+================================+==================================+
 
 +========+=======================+=========================================+
 |  No    |  File Name            |  1YM                                    |
@@ -131,10 +132,15 @@ Bluetooth Tx power configuration file:
 
 STEP 1:  Execute the script file, "switch_regions.sh"
 ======
-Ex: $./switch_regions.sh 1ZM
+Ex: $./switch_regions.sh 1ZM <COUNTRY_CODE>
+where <COUNTRY_CODE> is "US", "CA", "EU", and "JP"
 
+    US - For USA
+    CA - Canada
+    EU - European Union
+    JP - Japan
 
-STEP 2:  Modify the file, “wifi_mod_para.conf”. Please find the details below.
+STEP 2:  "switch_regions.sh" automatically modifies the file, “wifi_mod_para.conf”. Please find the details below.
 =======
 
 Content of “wifi_mod_para.conf”:
@@ -145,7 +151,7 @@ Content of “wifi_mod_para.conf”:
     1ZM      - SD8987
     1YM-SDIO - SD8997
     1YM-PCIe - PCIE8997
-    1XK      - SD8978
+    1XK      - IW416
     2DS      - SD8801
     1XL/2XS  - SD9098
     2EL/2DL  - IW612
@@ -159,8 +165,19 @@ Content of “wifi_mod_para.conf”:
 
 For WLAN:
 ========
+Command example:
+---------------
+#switch_regions.sh 1YM US
+#reboot
+#iw reg set <COUNTRY_CODE>
+#iw reg get
 
-Ex: For 1ZM and to configure for US Region: modify the following structure.
+NOTE: 
+=====  
+When using "iw reg set <COUNTRY_CODE>" command, For Europe the country code is "DE", as there isn't actually a country code named "EU".
+i.e "iw reg set DE"
+
+Ex: For 1YM and to configure for US Region: modify the following structure.
 
 SD8997 = {
 	cfg80211_wext=0xf
@@ -169,7 +186,7 @@ SD8997 = {
 	ps_mode=1
 	auto_ds=1
 	host_mlme=1
-	fw_name=nxp/sdiouart8987_combo_v0.bin
+	fw_name=nxp/sdiouart8997_combo_v4.bin
 	txpwrlimit_cfg=nxp/txpower_US.bin
 }
 
@@ -182,5 +199,10 @@ Command example:
 ---------------
 # sh bt_power_config_1.sh
 
+NOTE: 
+=====  
+For 2EL/2DL modules, two separate Bluetooth Tx power configuration script files are provided:
+1. bt_power_config_US_CA_JP.sh : To configure Tx power for US, CA and JP countries.
+2. bt_power_config_EU.sh : To configure Tx power for EU contries.
 
 Refer the sample file, "wifi_mod_para_sample_US.conf" which is configured for modules (1ZM and 1YM to select US region).
