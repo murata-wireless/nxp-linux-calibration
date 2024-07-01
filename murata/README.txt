@@ -85,12 +85,12 @@ Bluetooth Tx power configuration file:
 |  8     |  rutxpower_JP.bin              | d92f4049593f76f2e2491d64db5e43af |
 |  9     |  db.txt                        | 62380BAA6F06DCF7A4F1F11D6FDF1BFC |
 |  10    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
-|  11    |  regulatory.db                 | cd3eca8e19d5590371dae5b1ee8f21e1 |
-|  12    |  regulatory.db.p7s             | d80bfd161ecdd1671e3f7791b6e83f3c |
+|  11    |  regulatory.db                 | 79f344d3b79774f1a3d03c1789a9d6de |
+|  12    |  regulatory.db.p7s             | 46f92eb0dd514c7b22874650afcb375b |
 |  13    |  bt_power_config_US_CA_JP.sh   | a4c6f3adf51ffcbfe4adafb256da849c |
 |  14    |  bt_power_config_EU.sh         | d37587d80491eff89d64a79eb8ee12f2 |
 |  15    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
-|  9     |  test.hex                      | 85c53792663161948ec1e0becfaa8bab |
+|  9     |  test.hex                      | 7d13c9e2505633eda9ea0d27188d9dcf |
 +========+================================+==================================+
 
 +========+=======================+=========================================+
