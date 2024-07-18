@@ -90,7 +90,7 @@ Bluetooth Tx power configuration file:
 |  7     |  rutxpower_EU.bin              | e0f39f2abe42ee2902d832ad3c1df6b4 |
 |  8     |  rutxpower_JP.bin              | d92f4049593f76f2e2491d64db5e43af |
 |  9     |  db.txt                        | 69571ad1421f21c18296dc383c6f63b9 |
-|  10    |  db-murata.txt                 | 2b6a6296b92e00a2882c7fcbcfd0586b |
+|  10    |  db-murata.txt                 | 62380baa6f06dcf7a4f1f11d6fdf1bfc |
 |  11    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
 |  12    |  regulatory.db                 | c844997e941507a0ea2b3a8b7b9a5734 |
 |  13    |  regulatory.db.p7s             | c38cc1684e365761947489394171bf8e |
