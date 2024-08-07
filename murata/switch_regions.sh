@@ -29,7 +29,16 @@ function load_files() {
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db     /lib/firmware
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db.p7s /lib/firmware
   
-  iw reg set ${COUNTRY}
+  # Since the country code is "DE" for specifying EU region, change it to "DE" when setting the region.
+  # Leave it as is for "US", "CA" and "JP"
+  # Tx power bin not just covers "DE", but it covers entire EU, hence file
+  # name reflect it as "EU".
+  if [ ${COUNTRY} == "EU" ]; then
+     iw reg set DE
+  else
+     iw reg set ${COUNTRY}
+  fi
+
   echo "Setup complete."
   echo ""
   iw reg get
