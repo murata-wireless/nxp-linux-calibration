@@ -1,11 +1,13 @@
 Please drop the folder, "murata" into root file system, under /lib/firmware/nxp
 
-Folder "murata" contains the following files for the modules 1XK, 1XL, 1YM, 1ZM and 2DS.
+Folder "murata" contains the following files for the modules 1XK, 1XL, 1YM, 1ZM, 2DS, 2EL and 2DL.
     - tx power, 
     - db.txt,
+    - db-murata.txt,
     - regulatory.db,
     - regulatory.db.p7s
-    - bt_power, 
+    - bt_power,
+    - murata.hex,
     - edmac.bin, and
     - switch_regions.sh
 
@@ -33,8 +35,10 @@ WLAN Carrier Sense / Adaptivity threshold configuration file:
 WLAN regulatory limitation configuration file:
 ----------------------------------------------
 - db.txt
+- db-murata.txt
 - regulatory.db
 - regulatory.db.p7s
+- murata.hex
 
 Bluetooth Tx power configuration file:
 -------------------------------------
@@ -47,11 +51,12 @@ Bluetooth Tx power configuration file:
 |  2     |  txpower_CA.bin       |  c93944abea1a2a4f16850c4eecbf6726       |
 |  3     |  txpower_EU.bin       |  d10bfbfcc4fbab25f564ff27b900a9ce       |
 |  4     |  txpower_JP.bin       |  7b94f1499c5dc377a958065da82d2719       |
-|  5     |  db.txt               |  a34c5151e81b043534d11ab3ed35be73       |
-|  6     |  ed_mac.bin           |  4b248cc52eb1444065f87cd5fc06cff2       |
-|  7     |  regulatory.db        |  2a47d34f6d5870e3d109e4bc1235b5da       |
-|  8     |  regulatory.db.p7s    |  e417cbc036d2c23f382920e6fde7dbdd       |
-|  9     |  test.hex             |  235124df2eb2e3d73b2e6b5a064bbd5a       |
+|  5     |  db.txt               |  bafe033ae5deecb5e3be7b19f5c6018c       |
+|  6     |  db-murata.txt        |  a34c5151e81b043534d11ab3ed35be73       |
+|  7     |  ed_mac.bin           |  4b248cc52eb1444065f87cd5fc06cff2       |
+|  8     |  regulatory.db        |  a151646cf0ff47518765a42e00e4884c       |
+|  9     |  regulatory.db.p7s    |  5ae110fd737c3de590ac0bc520cb36d7       |
+|  10    |  murata.hex           |  c44de596e9dcc7d72160ddb98cbfd648       |
 +========+=======================+=========================================+
 
 +========+=======================+=========================================+
@@ -65,11 +70,12 @@ Bluetooth Tx power configuration file:
 |  6     |  rutxpower_CA.bin     |  b9be928c670fc1a6597381008c87bcd4       |
 |  7     |  rutxpower_EU.bin     |  fe6dfb102d843382b35a92946b9d8a5a       |
 |  8     |  rutxpower_JP.bin     |  57919224b73efb571fa6b0c92eda1e0b       |
-|  9     |  db.txt               |  2af9e7112a8fff134740bd060e8e968d       |
-|  10    |  ed_mac.bin           |  ee5933e318fee0d4c66aed40791227ea       |
-|  11    |  regulatory.db        |  645652b4dfbb017e75653cc55e1a9ccd       |
-|  12    |  regulatory.db.p7s    |  5d8f6937875feb07be635b6c8225baae       |
-|  9     |  test.hex             |  7c0894011f274de85db1bd33fe769896       |
+|  9     |  db.txt               |  69571ad1421f21c18296dc383c6f63b9       |
+|  10    |  db-murata.txt        |  2af9e7112a8fff134740bd060e8e968d       |
+|  11    |  ed_mac.bin           |  ee5933e318fee0d4c66aed40791227ea       |
+|  12    |  regulatory.db        |  c844997e941507a0ea2b3a8b7b9a5734       |
+|  13    |  regulatory.db.p7s    |  f01ba6cd3eca2c31394b5e7e5597885e       |
+|  14    |  murata.hex           |  248971ffc6415a58b7ebd6ba4bba5af0       |
 +========+=======================+=========================================+
 
 +========+================================+==================================+
@@ -83,14 +89,15 @@ Bluetooth Tx power configuration file:
 |  6     |  rutxpower_CA.bin              | f682d508c1a1b628c66454d9854dc4e5 |
 |  7     |  rutxpower_EU.bin              | e0f39f2abe42ee2902d832ad3c1df6b4 |
 |  8     |  rutxpower_JP.bin              | d92f4049593f76f2e2491d64db5e43af |
-|  9     |  db.txt                        | 62380BAA6F06DCF7A4F1F11D6FDF1BFC |
-|  10    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
-|  11    |  regulatory.db                 | cd3eca8e19d5590371dae5b1ee8f21e1 |
-|  12    |  regulatory.db.p7s             | d80bfd161ecdd1671e3f7791b6e83f3c |
-|  13    |  bt_power_config_US_CA_JP.sh   | a4c6f3adf51ffcbfe4adafb256da849c |
-|  14    |  bt_power_config_EU.sh         | d37587d80491eff89d64a79eb8ee12f2 |
-|  15    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
-|  9     |  test.hex                      | 85c53792663161948ec1e0becfaa8bab |
+|  9     |  db.txt                        | 69571ad1421f21c18296dc383c6f63b9 |
+|  10    |  db-murata.txt                 | 62380baa6f06dcf7a4f1f11d6fdf1bfc |
+|  11    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
+|  12    |  regulatory.db                 | c844997e941507a0ea2b3a8b7b9a5734 |
+|  13    |  regulatory.db.p7s             | c38cc1684e365761947489394171bf8e |
+|  14    |  bt_power_config_US_CA_JP.sh   | a4c6f3adf51ffcbfe4adafb256da849c |
+|  15    |  bt_power_config_EU.sh         | d37587d80491eff89d64a79eb8ee12f2 |
+|  16    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
+|  17    |  murata.hex                    | 3461cd50a46fb7082fa493f8105fff64 |
 +========+================================+==================================+
 
 +========+=======================+=========================================+
@@ -100,11 +107,12 @@ Bluetooth Tx power configuration file:
 |  2     |  txpower_CA.bin       |  c53438c16f3ab97d5d427f68448d9968       |
 |  3     |  txpower_EU.bin       |  085fa56dcda492b5f206a18cb52d374a       |
 |  4     |  txpower_JP.bin       |  79e1a88ee2de19fe548f8e206fa7d0a3       |
-|  5     |  db.txt               |  dbf92b257b8e3b1c2bf43ea8886debf7       |
-|  6     |  ed_mac.bin           |  bbf7a793870f9a9424ec6df79309a094       |
-|  7     |  regulatory.db        |  ecca9c300c836312379de50ef387eeda       |
-|  8     |  regulatory.db.p7s    |  5a7cbe25dba90bb8d3a8bf2a2d5b14c3       |
-|  9     |  test.hex             |  669c463002e635e7070a5df64ece7e78       |
+|  5     |  db.txt               |  645088447ad97810c87112747145e6f1       |
+|  6     |  db-murata.txt        |  dbf92b257b8e3b1c2bf43ea8886debf7       |
+|  7     |  ed_mac.bin           |  bbf7a793870f9a9424ec6df79309a094       |
+|  8     |  regulatory.db        |  9eff9e6fe87ab7a152eedf89b2e748da       |
+|  9     |  regulatory.db.p7s    |  14bebee00d592ab39504f3deecd324a5       |
+|  10    |  murata.hex           |  6fedeae7f9804daae022de16ffbcac03       |
 +========+=======================+=========================================+
 		
 +========+=======================+=========================================+
@@ -114,11 +122,12 @@ Bluetooth Tx power configuration file:
 |  2     |  txpower_CA.bin       |  2dd1aacf4532fe9667b5bb0744598ece       |
 |  3     |  txpower_EU.bin       |  f73f5939ed3f67b6dfcd5b5a600356d7       |
 |  4     |  txpower_JP.bin       |  0801095d2e7e21fcd6ca25d10b3337d7       |
-|  5     |  db.txt               |  ef55b9d535b6e76cc5f794512bfecd85       |
-|  6     |  ed_mac.bin           |  368528bfcab2869f4e5dd512f13cfe0f       |
-|  7     |  regulatory.db        |  2e125cd15f9ad50819e76472e7c5e592       |
-|  8     |  regulatory.db.p7s    |  f6c98b944a127c168c42a0be0365e75d       |
-|  9     |  test.hex             |  d942602a85637ae7fad71f26b49d6879       |
+|  5     |  db.txt               |  8f45df9eb5211485f02e2db324f3ba4f       |
+|  6     |  db-murata.txt        |  ef55b9d535b6e76cc5f794512bfecd85       |
+|  7     |  ed_mac.bin           |  368528bfcab2869f4e5dd512f13cfe0f       |
+|  8     |  regulatory.db        |  2174684d663628f4ad5aec61e9bf4847       |
+|  9     |  regulatory.db.p7s    |  65b9cc291160d915006c329c003b76b4       |
+|  10    |  murata.hex           |  e39447b68b55b4514e04d339ef7ec904       |
 +========+=======================+=========================================+	
 
 +========+=======================+=========================================+
@@ -128,11 +137,12 @@ Bluetooth Tx power configuration file:
 |  2     |  txpower_CA.bin       |  97eaa214a23eb09f63e1218a9426f0b5       |
 |  3     |  txpower_EU.bin       |  213716863d3478a11e87716e7e78646e       |
 |  4     |  txpower_JP.bin       |  5bf0b86d73e270194e62e25e93bd0e38       |
-|  5     |  db.txt               |  dbf92b257b8e3b1c2bf43ea8886debf7       |
-|  6     |  ed_mac.bin           |  8bf727045166aac47e7c00a9fa358b5b       |
-|  7     |  regulatory.db        |  ecca9c300c836312379de50ef387eeda       |
-|  8     |  regulatory.db.p7s    |  de0a4634f61bc45ce55a222fe87d024a       |
-|  9     |  test.hex             |  8f5d806391b45a3a11c150a63c293c7c       |
+|  5     |  db.txt               |  645088447ad97810c87112747145e6f1       |
+|  6     |  db-murata.txt        |  dbf92b257b8e3b1c2bf43ea8886debf7       |
+|  7     |  ed_mac.bin           |  8bf727045166aac47e7c00a9fa358b5b       |
+|  8     |  regulatory.db        |  9eff9e6fe87ab7a152eedf89b2e748da       |
+|  9     |  regulatory.db.p7s    |  51b097e5e8cec290339be0035c7fa611       |
+|  10    |  murata.hex           |  d99428ac7e0c642a95c61e907290ba3b       |
 +========+=======================+=========================================+
 
 
