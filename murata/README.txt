@@ -94,10 +94,11 @@ Bluetooth Tx power configuration file:
 |  11    |  ed_mac.bin                    | 2dd1234bfab2bba6eba2d5e5c3d3092c |
 |  12    |  regulatory.db                 | c844997e941507a0ea2b3a8b7b9a5734 |
 |  13    |  regulatory.db.p7s             | c38cc1684e365761947489394171bf8e |
-|  14    |  bt_power_config_US_CA_JP.sh   | a4c6f3adf51ffcbfe4adafb256da849c |
-|  15    |  bt_power_config_EU.sh         | d37587d80491eff89d64a79eb8ee12f2 |
-|  16    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
-|  17    |  murata.hex                    | 3461cd50a46fb7082fa493f8105fff64 |
+|  14    |  bt_power_config_US_CA.sh      | a4c6f3adf51ffcbfe4adafb256da849c |
+|  15    |  bt_power_config_JP.sh         | 3c7d100a9aae18b9895c00b4151ab2b3 |
+|  16    |  bt_power_config_EU.sh         | d37587d80491eff89d64a79eb8ee12f2 |
+|  17    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
+|  18    |  murata.hex                    | 3461cd50a46fb7082fa493f8105fff64 |
 +========+================================+==================================+
 
 +========+=======================+=========================================+
@@ -218,8 +219,9 @@ Command example:
 NOTE: 
 =====  
 For 2EL/2DL modules, two separate Bluetooth Tx power configuration script files are provided:
-1. bt_power_config_US_CA_JP.sh : To configure Tx power for US, CA and JP countries.
-2. bt_power_config_EU.sh : To configure Tx power for EU contries.
+1. bt_power_config_US_CA.sh : To configure Tx power for US and CA countries.
+2. bt_power_config_JP.sh : To configure Tx power for JP countries.
+3. bt_power_config_EU.sh : To configure Tx power for EU contries.
 
 If you want to specify dAnt (dedicated Antenna) for 2EL/2DL, then please specify the following for 2EL/2DL.
 	cal_data_cfg=nxp/WlanCalData_ext_NXP_dANT.conf
