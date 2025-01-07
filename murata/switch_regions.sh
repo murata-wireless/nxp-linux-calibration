@@ -15,7 +15,7 @@ function load_files() {
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_EU.sh /lib/firmware/nxp
     cp /lib/firmware/nxp/murata/files/${MODULE}/WlanCalData_ext_NXP_dANT.conf /lib/firmware/nxp
   fi
-  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.bin /lib/firmware/nxp
+  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.conf /lib/firmware/nxp
 
   if [ ${MODULE} == "1XL" ] || [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
@@ -60,7 +60,6 @@ function update_conf_file_1zm() {
       ;;
     EU)
       sed -i '81s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '82 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
       sed -i '81s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
@@ -90,8 +89,6 @@ function update_conf_file_1ym() {
     EU)
       sed -i '38s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
       sed -i '99s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '39 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '101 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
       sed -i '38s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
@@ -122,7 +119,6 @@ function update_conf_file_1xk() {
       ;;
     EU)
       sed -i '162s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '163 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
       sed -i '162s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
@@ -152,7 +148,6 @@ function update_conf_file_2ds() {
       ;;
     EU)
       sed -i '173s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '174 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
       sed -i '173s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
@@ -189,10 +184,6 @@ function update_conf_file_1xl_2xs() {
       sed -i '138s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
       sed -i '150s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
       sed -i '151s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '113 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '127 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '141 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
-      sed -i '155 i muratainit_hostcmd_cfg=nxp/ed_mac.bin' /lib/firmware/nxp/wifi_mod_para.conf
       ;;
     JP)
       sed -i '111s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
