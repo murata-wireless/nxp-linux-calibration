@@ -1,6 +1,6 @@
 Please drop the folder, "murata" into root file system, under /lib/firmware/nxp
 
-Folder "murata" contains the following files for the modules 1XK, 1XL, 1YM, 1ZM, 2DS, 2EL and 2DL.
+Folder "murata" contains the following files for the modules 1XK, 1XL, 1YM, 1ZM, 2DS, 2EL, 2DL, 2KL and 2LL.
     - tx power, 
     - db.txt,
     - db-murata.txt,
@@ -17,6 +17,7 @@ WLAN Tx power configuration files for Country Code:
 - CA(Canada)         : txpower_CA.bin
 - EU(European Union) : txpower_EU.bin
 - JP(Japan)          : txpower_JP.bin
+- TW(Taiwan)         : txpower_JP.bin
 
 
 WLAN Tx power configuration files for 11ax RU Country Code:
@@ -25,6 +26,7 @@ WLAN Tx power configuration files for 11ax RU Country Code:
 - CA(Canada)         : rutxpower_CA.bin
 - EU(European Union) : rutxpower_EU.bin
 - JP(Japan)          : rutxpower_JP.bin
+- TW(Taiwan)         : rutxpower_TW.bin
 
 
 WLAN Carrier Sense / Adaptivity threshold configuration file:
@@ -101,6 +103,32 @@ Bluetooth Tx power configuration file:
 |  18    |  murata.hex                    | 3461cd50a46fb7082fa493f8105fff64 |
 +========+================================+==================================+
 
++========+================================+==================================+
+|  No    |  File Name                     |  2KL/2LL                         |
++========+================================+==================================+
+|  1     |  txpower_US.bin                | 814b16b61f13c8a0d041123d8f6339db |
+|  2     |  txpower_CA.bin                | 879b81df45a21d3abe7419e5afb2a962 |
+|  3     |  txpower_EU.bin                | c2d0677774442de25ac3e3d1434d2291 |
+|  4     |  txpower_JP.bin                | e9852eecfd6ddfc6a6716ccc52febdff |
+|  5     |  txpower_TW.bin                | 814b16b61f13c8a0d041123d8f6339db |
+|  5     |  rutxpower_US.bin              | 61a2e1be72465808322919513849b20d |
+|  6     |  rutxpower_CA.bin              | 65545dc05764eb71d0b0afeaefb9a8dc |
+|  7     |  rutxpower_EU.bin              | 58d3a1caf31c5a4d8f78f8eb5fa86416 |
+|  8     |  rutxpower_JP.bin              | 5722be52d9ac26d6ecd37c67a887f5cf |
+|  8     |  rutxpower_TW.bin              | 9a596ffca203e239087b5d9ce7389cae |
+|  9     |  db.txt                        | 6647a067802353bc618e2f618e393d3e |
+|  10    |  db-murata.txt                 | 70b508af5aff5f9eb6cd5f1fcb156af9 |
+|  11    |  ed_mac.conf                   | 56580b2c5bc32ac11bc3af307b50cef7 |
+|  12    |  regulatory.db                 | c55d01de4cf088d5377c3d43ea3e12d6 |
+|  13    |  regulatory.db.p7s             | d79f5a3447a50e1f9a4f75a885602fc7 |
+|  14    |  bt_power_config_US_CA_TW.sh   | 88ce8c55d75d785a640e7aa803a355a9 |
+|  15    |  bt_power_config_JP.sh         | 14b5e9365ede307d39b77e8f855490b5 |
+|  16    |  bt_power_config_EU.sh         | 79bc71087d47c6477681d1198cb194b7 |
+|  17    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
+|  18    |  murata.hex                    | f8b61557a9b4bd9216da93e123cff74e |
++========+================================+==================================+
+
+
 +========+=======================+=========================================+
 |  No    |  File Name            |  1YM                                    |
 +========+=======================+=========================================+
@@ -172,6 +200,7 @@ Content of “wifi_mod_para.conf”:
     2DS      - SD8801
     1XL/2XS  - SD9098
     2EL/2DL  - IW612
+    2KL/2LL  - IW610
 
 2. For the parameter, "txpwrlimit_cfg", Select appropriate module name, and corresponding country, when specifying txpower_<COUNTRY_CODE>.bin
    Ex:

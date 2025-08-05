@@ -14,15 +14,21 @@ function load_files() {
     cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_*.sh /lib/firmware/nxp
     cp /lib/firmware/nxp/murata/files/${MODULE}/WlanCalData_ext_NXP_dANT.conf /lib/firmware/nxp
   fi
-  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.conf /lib/firmware/nxp
 
-  if [ ${MODULE} == "1XL" ] || [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ]; then
+  if [ ${MODULE} == "2KL" ] || [ ${MODULE} == "2LL" ]; then
+    cp /lib/firmware/nxp/murata/files/${MODULE}/bt_power_config_*.sh /lib/firmware/nxp
+  fi
+
+  if [ ${MODULE} == "1XL" ] || [ ${MODULE} == "2DL" ] || [ ${MODULE} == "2EL" ] || [ ${MODULE} == "2KL" ] || [ ${MODULE} == "2LL" ]; then
     cp /lib/firmware/nxp/murata/files/${MODULE}/rutxpower_*.bin /lib/firmware/nxp
   fi
 
   if [ ! -f /lib/firmware/nxp/bt_power_config_1.sh ]; then
     cp /lib/firmware/nxp/murata/files/bt_power_config_1.sh /lib/firmware/nxp
   fi
+
+  # Copy ed_mac.conf file
+  cp /lib/firmware/nxp/murata/files/${MODULE}/ed_mac.conf /lib/firmware/nxp
   
   # copy regulatory.db and regulatory.db.p7s to /lib/firmware
   cp /lib/firmware/nxp/murata/files/${MODULE}/regulatory.db     /lib/firmware
@@ -243,6 +249,50 @@ function update_conf_file_2dl_2el() {
   sed -i 's/murata/	/g' /lib/firmware/nxp/wifi_mod_para.conf
 }
 
+function update_conf_file_2ll_2kl() {
+  # Update the wifi_mod_para.conf file based on ${MODULE} and ${COUNTRY}. Keep a backup.
+  if [ ! -f /lib/firmware/nxp/wifi_mod_para.conf.orig ]; then
+    if [ -f /lib/firmware/nxp/wifi_mod_para.conf ]; then
+      cp /lib/firmware/nxp/wifi_mod_para.conf /lib/firmware/nxp/wifi_mod_para.conf.orig
+    fi
+  fi
+
+  cp /lib/firmware/nxp/murata/files/wifi_mod_para_murata.conf /lib/firmware/nxp/wifi_mod_para.conf
+
+  case ${COUNTRY} in
+    US)
+      ;;
+    EU)
+      sed -i '196s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '197s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '204s/rutxpower_US/rutxpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '205s/txpower_US/txpower_EU/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    JP)
+      sed -i '196s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '197s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '204s/rutxpower_US/rutxpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '205s/txpower_US/txpower_JP/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    CA)
+      sed -i '196s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '197s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '204s/rutxpower_US/rutxpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '205s/txpower_US/txpower_CA/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    TW)
+      sed -i '196s/rutxpower_US/rutxpower_TW/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '197s/txpower_US/txpower_TW/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '204s/rutxpower_US/rutxpower_TW/' /lib/firmware/nxp/wifi_mod_para.conf
+      sed -i '205s/txpower_US/txpower_TW/' /lib/firmware/nxp/wifi_mod_para.conf
+      ;;
+    *)
+      ;;
+  esac
+
+  sed -i 's/murata/	/g' /lib/firmware/nxp/wifi_mod_para.conf
+}
+
 function switch_to_1zm() {
   echo ""
   echo "Setting up for 1ZM (${TYPE} bit):"
@@ -315,6 +365,15 @@ function switch_to_2el() {
   echo ""
 }
 
+function switch_to_2ll() {
+  echo ""
+  echo "Setting up for 2KL/2LL (${TYPE} bit):"
+  echo "----------------------------"
+  load_files
+  update_conf_file_2ll_2kl
+  echo ""
+}
+
 function usage() {
   echo ""
   echo "Version: $VERSION"
@@ -324,10 +383,10 @@ function usage() {
   echo ""
   echo "Where:"
   echo "  <module> is one of :"
-  echo "     1zm, 1ym, 1xk, 2ds, 1xl, 2xs, 2dl, 2el"
+  echo "     1zm, 1ym, 1xk, 2ds, 1xl, 2xs, 2dl, 2el, 2ll, 2kl"
   echo ""
   echo "  <country code> is one of :"
-  echo "     CA, EU, JP, US"
+  echo "     CA, EU, JP, US, TW"
   echo ""
 }
 
@@ -348,6 +407,9 @@ case ${2^^} in
     ;;
   CA)
     COUNTRY=CA
+    ;;
+  TW)
+    COUNTRY=TW
     ;;
   *)
     #current
@@ -393,6 +455,10 @@ case ${1^^} in
   EL|2EL)
     MODULE=2EL
     switch_to_2el
+    ;;
+  LL|2LL|KL|2KL)
+    MODULE=2LL
+    switch_to_2ll
     ;;
   *)
     #current
