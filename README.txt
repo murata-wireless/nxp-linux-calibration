@@ -111,7 +111,7 @@ Bluetooth Tx power configuration file:
 |  3     |  txpower_EU.bin                | c2d0677774442de25ac3e3d1434d2291 |
 |  4     |  txpower_JP.bin                | e9852eecfd6ddfc6a6716ccc52febdff |
 |  5     |  txpower_TW.bin                | 814b16b61f13c8a0d041123d8f6339db |
-|  5     |  rutxpower_US.bin              | 61a2e1be72465808322919513849b20d |
+|  5     |  rutxpower_US.bin              | 9a596ffca203e239087b5d9ce7389cae |
 |  6     |  rutxpower_CA.bin              | 65545dc05764eb71d0b0afeaefb9a8dc |
 |  7     |  rutxpower_EU.bin              | 58d3a1caf31c5a4d8f78f8eb5fa86416 |
 |  8     |  rutxpower_JP.bin              | 5722be52d9ac26d6ecd37c67a887f5cf |
@@ -124,8 +124,7 @@ Bluetooth Tx power configuration file:
 |  14    |  bt_power_config_US_CA_TW.sh   | 88ce8c55d75d785a640e7aa803a355a9 |
 |  15    |  bt_power_config_JP.sh         | 14b5e9365ede307d39b77e8f855490b5 |
 |  16    |  bt_power_config_EU.sh         | 79bc71087d47c6477681d1198cb194b7 |
-|  17    |  WlanCalData_ext_NXP_dANT.conf | ee15776602763ca6031f151694fe0c1a |
-|  18    |  murata.hex                    | f8b61557a9b4bd9216da93e123cff74e |
+|  17    |  murata.hex                    | f8b61557a9b4bd9216da93e123cff74e |
 +========+================================+==================================+
 
 
@@ -252,12 +251,17 @@ Command example:
 
 NOTE: 
 =====  
-For 2EL/2DL modules, two separate Bluetooth Tx power configuration script files are provided:
+For 2EL/2DL modules, three separate Bluetooth Tx power configuration script files are provided:
 1. bt_power_config_US_CA.sh : To configure Tx power for US and CA countries.
 2. bt_power_config_JP.sh : To configure Tx power for JP countries.
 3. bt_power_config_EU.sh : To configure Tx power for EU contries.
 
 If you want to specify dAnt (dedicated Antenna) for 2EL/2DL, then please specify the following for 2EL/2DL.
 	cal_data_cfg=nxp/WlanCalData_ext_NXP_dANT.conf
+
+For 2KL/2LL modules, three separate Bluetooth Tx power configuration script files are provided:
+1. bt_power_config_US_CA_TW.sh : To configure Tx power for US, CA and TW countries.
+2. bt_power_config_JP.sh : To configure Tx power for JP countries.
+3. bt_power_config_EU.sh : To configure Tx power for EU contries.
 
 Refer the sample file, "wifi_mod_para_sample_US.conf" which is configured for modules (1ZM and 1YM to select US region).

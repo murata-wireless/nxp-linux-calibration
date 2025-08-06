@@ -386,7 +386,7 @@ function usage() {
   echo "     1zm, 1ym, 1xk, 2ds, 1xl, 2xs, 2dl, 2el, 2ll, 2kl"
   echo ""
   echo "  <country code> is one of :"
-  echo "     CA, EU, JP, US, TW"
+  echo "     CA, EU, JP, US, TW (2KL/2LL only)"
   echo ""
 }
 
