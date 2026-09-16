@@ -1,0 +1,521 @@
+name: Sync all branches with master
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_branches:
+        description: 'Comma-separated branch names to skip (optional)'
+        required: false
+        default: ''
+
+      dry_run:
+        description: 'Dry run only - do not push branches or create remote backup tags'
+        required: true
+        type: boolean
+        default: true
+
+  # ------------------------------------------------------------
+  # Automatic triggers - enable later after validating workflow
+  # ------------------------------------------------------------
+  #
+  # push:
+  #   branches:
+  #     - master
+  #
+  # create:
+  #
+  # When enabling "create:", consider adding this condition to
+  # the "sync" job:
+  #
+  # if: github.event_name != 'create' || github.event.ref_type == 'branch'
+
+
+permissions:
+  contents: write
+
+
+concurrency:
+  group: sync-all-branches-with-master
+  cancel-in-progress: false
+
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ----------------------------------------------------------
+      # Checkout complete repository history
+      # ----------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+
+      # ----------------------------------------------------------
+      # Configure Git identity
+      # ----------------------------------------------------------
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+
+      # ----------------------------------------------------------
+      # Fetch latest branches and tags
+      # ----------------------------------------------------------
+      - name: Fetch all remote branches and tags
+        run: |
+          git fetch origin --prune --tags
+
+
+      # ----------------------------------------------------------
+      # Display master revision
+      # ----------------------------------------------------------
+      - name: Show master commit
+        run: |
+          echo "Current origin/master commit:"
+          git rev-parse origin/master
+          echo
+          git log -1 --oneline origin/master
+
+
+      # ----------------------------------------------------------
+      # Synchronize every branch with master
+      # ----------------------------------------------------------
+      - name: Sync all branches with master
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BACKUP_RETENTION=5
+
+          SKIP_BRANCHES="${{ github.event.inputs.skip_branches || '' }}"
+          DRY_RUN="${{ github.event.inputs.dry_run }}"
+
+          synced_branches=()
+          skipped_branches=()
+
+          echo "=================================================="
+          echo "Branch synchronization started"
+          echo "=================================================="
+          echo
+
+          echo "Dry run:"
+          echo "  $DRY_RUN"
+          echo
+
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "DRY RUN MODE ENABLED"
+            echo
+            echo "No remote branches will be changed."
+            echo "No remote rollback tags will be created."
+            echo "No remote backup tags will be deleted."
+            echo
+          fi
+
+          echo "Master commit:"
+          git rev-parse origin/master
+          echo
+
+          echo "Branches requested to skip:"
+          if [ -n "$SKIP_BRANCHES" ]; then
+            echo "$SKIP_BRANCHES"
+          else
+            echo "<none>"
+          fi
+          echo
+
+
+          # ------------------------------------------------------
+          # Find all remote branches except master and origin/HEAD
+          # ------------------------------------------------------
+          branches=$(git for-each-ref \
+            --format='%(refname:strip=3)' \
+            refs/remotes/origin/ \
+            | grep -v '^master$' \
+            | grep -v '^HEAD$' || true)
+
+
+          if [ -z "$branches" ]; then
+            echo "No branches found to synchronize."
+            exit 0
+          fi
+
+
+          echo "Remote branches found:"
+          echo "$branches"
+          echo
+
+
+          # ------------------------------------------------------
+          # Process each branch
+          # ------------------------------------------------------
+          for branch in $branches; do
+
+            echo
+            echo "=================================================="
+            echo "Processing branch: $branch"
+            echo "=================================================="
+            echo
+
+
+            # ----------------------------------------------------
+            # Skip handling
+            # ----------------------------------------------------
+            skip_this_branch=false
+
+            if [ -n "$SKIP_BRANCHES" ]; then
+
+              IFS=',' read -ra skip_list <<< "$SKIP_BRANCHES"
+
+              for skipped_branch in "${skip_list[@]}"; do
+
+                skipped_branch="$(echo "$skipped_branch" | xargs)"
+
+                if [ "$branch" = "$skipped_branch" ]; then
+                  skip_this_branch=true
+                  break
+                fi
+
+              done
+            fi
+
+
+            if [ "$skip_this_branch" = true ]; then
+
+              echo "SKIPPED: $branch"
+              skipped_branches+=("$branch")
+
+              echo
+              continue
+
+            fi
+
+
+            # ----------------------------------------------------
+            # STEP 1
+            # Create rollback point
+            # ----------------------------------------------------
+            timestamp=$(date -u +"%Y%m%dT%H%M%SZ")
+
+            backup_tag="autosync-backup/${branch}-${timestamp}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+
+            echo "Rollback tag:"
+            echo "  $backup_tag"
+            echo
+
+            echo "Rollback target:"
+            git rev-parse "origin/$branch"
+
+
+            # Always create the tag locally because it also helps
+            # validate the tag-generation logic during dry runs.
+            git tag "$backup_tag" "origin/$branch"
+
+
+            if [ "$DRY_RUN" = "true" ]; then
+
+              echo
+              echo "DRY RUN:"
+              echo "Rollback tag would be pushed to origin."
+
+            else
+
+              echo
+              echo "Pushing rollback tag..."
+
+              git push origin "refs/tags/$backup_tag"
+
+              echo "Rollback tag successfully created remotely."
+
+            fi
+
+
+            # ----------------------------------------------------
+            # STEP 2
+            # Recreate local branch from exact remote state
+            # ----------------------------------------------------
+            echo
+            echo "Checking out current remote branch state..."
+
+            git switch --force-create "$branch" "origin/$branch"
+
+            echo
+            echo "Current branch state:"
+            git status --short --branch
+
+
+            # ----------------------------------------------------
+            # STEP 3
+            # Merge master into branch without committing
+            # ----------------------------------------------------
+            echo
+            echo "Merging origin/master into $branch..."
+
+            if git merge origin/master --no-ff --no-commit; then
+
+              echo
+              echo "Merge completed without conflicts."
+
+            else
+
+              echo
+              echo "Merge conflicts detected."
+              echo
+              echo "origin/master is authoritative."
+              echo
+              echo "The complete tree will be replaced with"
+              echo "the origin/master tree."
+
+            fi
+
+
+            # ----------------------------------------------------
+            # STEP 4
+            # Force tree to exactly match master
+            # ----------------------------------------------------
+            if git rev-parse -q --verify MERGE_HEAD >/dev/null; then
+
+              echo
+              echo "Setting complete branch tree to origin/master..."
+
+              git read-tree --reset -u origin/master
+
+
+              echo
+              echo "Verifying staged tree..."
+
+              if ! git diff --cached --quiet origin/master; then
+
+                echo
+                echo "ERROR:"
+                echo "Staged tree differs from origin/master."
+                echo
+                echo "Difference summary:"
+                git diff --cached --stat origin/master
+
+                exit 1
+
+              fi
+
+
+              echo "PASS: Staged tree is identical to origin/master."
+
+
+              echo
+              echo "Creating local synchronization commit..."
+
+              git commit -m "Sync $branch with master"
+
+            else
+
+              echo
+              echo "No merge commit required."
+
+            fi
+
+
+            # ----------------------------------------------------
+            # STEP 5
+            # Verify final local tree equals master
+            # ----------------------------------------------------
+            echo
+            echo "Performing final file-content verification..."
+
+            if ! git diff --quiet origin/master HEAD; then
+
+              echo
+              echo "ERROR:"
+              echo "$branch does not contain the same files as master."
+              echo
+              echo "Difference summary:"
+              git diff --stat origin/master HEAD
+
+              exit 1
+
+            fi
+
+            echo "PASS: Branch file contents match master."
+
+
+            # ----------------------------------------------------
+            # STEP 6
+            # Verify master is part of branch history
+            # ----------------------------------------------------
+            echo
+            echo "Verifying Git history..."
+
+            if ! git merge-base --is-ancestor origin/master HEAD; then
+
+              echo
+              echo "ERROR:"
+              echo "origin/master is not an ancestor of $branch."
+
+              exit 1
+
+            fi
+
+            echo "PASS: Current master exists in branch history."
+
+
+            # ----------------------------------------------------
+            # STEP 7
+            # Push branch unless this is a dry run
+            # ----------------------------------------------------
+            echo
+
+            if [ "$DRY_RUN" = "true" ]; then
+
+              echo "DRY RUN:"
+              echo "Branch would now be pushed:"
+              echo "  $branch"
+              echo
+
+              echo "Local resulting commit:"
+              git log -1 --oneline HEAD
+
+            else
+
+              echo "Pushing synchronized branch..."
+
+              git push origin HEAD:"$branch"
+
+              echo
+              echo "SUCCESS: $branch synchronized with master."
+
+            fi
+
+
+            synced_branches+=("$branch")
+
+
+            # ----------------------------------------------------
+            # STEP 8
+            # Rollback-tag retention
+            # ----------------------------------------------------
+            echo
+            echo "Checking rollback-tag retention..."
+
+
+            if [ "$DRY_RUN" = "true" ]; then
+
+              echo "DRY RUN:"
+              echo "Remote rollback-tag cleanup is skipped."
+
+            else
+
+              git fetch origin --tags --force
+
+
+              mapfile -t backup_tags < <(
+                git tag --list "autosync-backup/${branch}-*" | sort -r
+              )
+
+
+              backup_count=${#backup_tags[@]}
+
+              echo "Automatic rollback tags found for $branch: $backup_count"
+
+
+              if [ "$backup_count" -gt "$BACKUP_RETENTION" ]; then
+
+                echo "Keeping newest $BACKUP_RETENTION rollback tags."
+
+
+                for ((i=BACKUP_RETENTION; i<backup_count; i++)); do
+
+                  old_tag="${backup_tags[$i]}"
+
+                  echo "Deleting old rollback tag:"
+                  echo "  $old_tag"
+
+                  git tag -d "$old_tag"
+                  git push origin ":refs/tags/$old_tag"
+
+                done
+
+              else
+
+                echo "No rollback-tag cleanup required."
+
+              fi
+
+            fi
+
+
+            echo
+            echo "Finished processing: $branch"
+            echo
+
+          done
+
+
+          # ------------------------------------------------------
+          # Final summary
+          # ------------------------------------------------------
+          echo
+          echo "=================================================="
+          echo "WORKFLOW SUMMARY"
+          echo "=================================================="
+          echo
+
+          echo "Mode:"
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "  DRY RUN - no remote changes made"
+          else
+            echo "  LIVE - branches/tags updated"
+          fi
+
+          echo
+
+          echo "Processed branches:"
+
+          if [ "${#synced_branches[@]}" -eq 0 ]; then
+            echo "  <none>"
+          else
+            for branch in "${synced_branches[@]}"; do
+              echo "  - $branch"
+            done
+          fi
+
+          echo
+
+          echo "Skipped branches:"
+
+          if [ "${#skipped_branches[@]}" -eq 0 ]; then
+            echo "  <none>"
+          else
+            for branch in "${skipped_branches[@]}"; do
+              echo "  - $branch"
+            done
+          fi
+
+          echo
+
+          if [ "$DRY_RUN" = "true" ]; then
+
+            echo "=================================================="
+            echo "DRY RUN COMPLETED SUCCESSFULLY"
+            echo "=================================================="
+            echo
+            echo "No remote branches were modified."
+            echo "No remote tags were created or deleted."
+
+          else
+
+            echo "=================================================="
+            echo "SYNCHRONIZATION COMPLETED SUCCESSFULLY"
+            echo "=================================================="
+            echo
+            echo "For each synchronized branch:"
+            echo
+            echo "  - contents match master"
+            echo "  - current master exists in branch history"
+            echo "  - rollback tag created before modification"
+            echo
+            echo "Latest $BACKUP_RETENTION automatic backups retained"
+
+          fi
